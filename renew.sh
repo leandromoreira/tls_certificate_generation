@@ -26,8 +26,8 @@ then
 
   docker cp `docker ps|grep common|cut -d " " -f 1`:/etc/letsencrypt/archive/$first_domain/privkey1.pem .
   docker cp `docker ps|grep common|cut -d " " -f 1`:/etc/letsencrypt/archive/$first_domain/fullchain1.pem .
-
-  docker-machine stop renewcert
-  docker-machine rm renewcert -y
 fi
+
+docker-machine stop renewcert
+docker-machine rm renewcert -y
 
