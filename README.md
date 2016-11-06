@@ -3,7 +3,7 @@
 ### Steps ###
 
 * Make sure you have docker installed
-* Configure your domains at `nginx/sites-enabled/site.conf`
+* Configure your domains / email at `nginx/sites-enabled/site.conf`
 * For AWS usage
   * Run `EC2_AKEY=xxx EC2_SKEY=yyy EC2_VPCID=kkk ./renew.sh` and follow the steps (like configuring DNS and etc)
 * For DO usage
