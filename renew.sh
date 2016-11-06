@@ -45,18 +45,21 @@ pylookup() {
 }
 
 print_domains() {
+  echo "======================================================"
+  echo "The IP you must use is : `docker-machine ip renewcert`"
+  echo "======================================================"
   for domain in $(cat nginx/sites-enabled/site.conf|grep domains|grep =|cut -d "=" -f 2)
   do
     address=$(pylookup $domain)
     echo "$domain ($address)"
   done
+  echo "======================================================"
+  echo "The IP you must use is : `docker-machine ip renewcert`"
+  echo "======================================================"
 }
 
 print_domains
 
-echo "======================================================"
-echo "The IP you must use is : `docker-machine ip renewcert`"
-echo "======================================================"
 echo ""
 read -p "Did you change your DNS already (point your domains to `docker-machine ip renewcert`) a wait its TTL? (y/N) " -n 1 -r
 echo ""
@@ -66,12 +69,16 @@ then
   echo "boostraping dependencies to work with letsencrypt and acquiring the certificates"
   docker exec -it `docker ps|grep nginx|cut -d' ' -f1` bash -c 'cd /opt/letsencrypt/ && ./letsencrypt-auto --config /var/www/letsencrypt/site.conf certonly --agree-tos'
 
+  print_domains
   echo ""
   echo "Type the FIRST (full) domain you set up at `nginx/sites-enabled/site.conf`, followed by [ENTER]:"
   read first_domain
 
   docker cp `docker ps|grep common|cut -d " " -f 1`:/etc/letsencrypt/archive/$first_domain/privkey1.pem .
   docker cp `docker ps|grep common|cut -d " " -f 1`:/etc/letsencrypt/archive/$first_domain/fullchain1.pem .
+  echo ""
+  echo ""
+  echo "the files privkey1 and fullchain1 were saved locally."
 fi
 
 docker-machine stop renewcert
