@@ -1,7 +1,30 @@
 #!/bin/bash
 
-echo "creating the temporary machine"
-docker-machine create --driver amazonec2 --amazonec2-access-key $EC2_AKEY --amazonec2-secret-key $EC2_SKEY --amazonec2-vpc-id $EC2_VPCID --amazonec2-zone d renewcert
+provider="$1"
+
+if [[ $provider == digitalocean ]]; then
+  if [ -z "$DO_ATOKEN" ]; then
+    echo "You must need to provide your digital ocean token DO_ATOKEN=<value>"
+    exit 1
+  fi
+  echo "creating the temporary machine"
+  docker-machine create --driver digitalocean --digitalocean-access-token=$DO_ATOKEN renewcert
+else
+  if [ -z "$EC2_AKEY" ]; then
+    echo "You must need to provide your amazon access key EC2_AKEY=<value>"
+    exit 1
+  fi
+  if [ -z "$EC2_SKEY" ]; then
+    echo "You must need to provide your amazon secret key EC2_SKEY=<value>"
+    exit 1
+  fi
+  if [ -z "$EC2_VPCID" ]; then
+    echo "You must need to provide your amazon vpc id EC2_VPCID=<value>"
+    exit 1
+  fi
+  echo "creating the temporary machine"
+  docker-machine create --driver amazonec2 --amazonec2-access-key $EC2_AKEY --amazonec2-secret-key $EC2_SKEY --amazonec2-vpc-id $EC2_VPCID --amazonec2-zone d renewcert
+fi
 
 echo "binding to the machine"
 eval "$(docker-machine env renewcert)"
@@ -12,6 +35,8 @@ docker-compose build nginx_common && docker-compose up -d nginx_common
 sleep 5 # give nginx a time to be up and running
 echo ""
 echo "The IP you must use is : `docker-machine ip renewcert`"
+echo ""
+echo `cat nginx/sites-enabled/site.conf|grep domains|grep =|cut -d "=" -f 2`
 echo ""
 read -p "Did you change your DNS already (point your domains to `docker-machine ip renewcert`)? (y/N) " -n 1 -r
 echo    # (optional) move to a new line
