@@ -1,3 +1,5 @@
+[![license](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)
+
 # Renew or create [let's encrypt](https://letsencrypt.org) certificates using temporary [Amazon EC2](https://aws.amazon.com/ec2/) / [Digital Ocean](https://www.digitalocean.com/) machines  #
 
 ### Steps ###
