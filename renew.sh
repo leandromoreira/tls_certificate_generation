@@ -36,9 +36,6 @@ sleep 5 # give nginx a time to be up and running
 echo ""
 echo ""
 echo ""
-echo "======================================================"
-echo "The IP you must use is : `docker-machine ip renewcert`"
-echo "======================================================"
 
 pylookup() {
   python -c 'import socket, sys; print socket.gethostbyname(sys.argv[1])' "$@" 2>/dev/null
