@@ -34,12 +34,24 @@ docker-compose build nginx_common && docker-compose up -d nginx_common
 
 sleep 5 # give nginx a time to be up and running
 echo ""
+echo ""
+echo ""
+echo "======================================================"
 echo "The IP you must use is : `docker-machine ip renewcert`"
+echo "======================================================"
+
+for domain in $(cat nginx/sites-enabled/site.conf|grep domains|grep =|cut -d "=" -f 2)
+do
+  echo $domain
+done
+
+echo "======================================================"
+echo "The IP you must use is : `docker-machine ip renewcert`"
+echo "======================================================"
 echo ""
-echo `cat nginx/sites-enabled/site.conf|grep domains|grep =|cut -d "=" -f 2`
+read -p "Did you change your DNS already (point your domains to `docker-machine ip renewcert`) a wait its TTL? (y/N) " -n 1 -r
 echo ""
-read -p "Did you change your DNS already (point your domains to `docker-machine ip renewcert`)? (y/N) " -n 1 -r
-echo    # (optional) move to a new line
+
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "boostraping dependencies to work with letsencrypt and acquiring the certificates"
