@@ -1,4 +1,4 @@
-# Renew or create let's encrypt certificates using temporary AWS / DO machines  #
+# Renew or create [let's encrypt](https://letsencrypt.org) certificates using temporary [Amazon EC2](https://aws.amazon.com/ec2/) / [Digital Ocean](https://www.digitalocean.com/) machines  #
 
 ### Steps ###
 
