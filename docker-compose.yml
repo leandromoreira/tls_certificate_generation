@@ -1,0 +1,7 @@
+version: "2"
+services:
+  nginx_common:
+    restart: always
+    build: ./nginx/
+    ports:
+      - "80:80"
