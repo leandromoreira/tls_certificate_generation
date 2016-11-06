@@ -40,10 +40,19 @@ echo "======================================================"
 echo "The IP you must use is : `docker-machine ip renewcert`"
 echo "======================================================"
 
-for domain in $(cat nginx/sites-enabled/site.conf|grep domains|grep =|cut -d "=" -f 2)
-do
-  echo $domain
-done
+pylookup() {
+  python -c 'import socket, sys; print socket.gethostbyname(sys.argv[1])' "$@" 2>/dev/null
+}
+
+print_domains() {
+  for domain in $(cat nginx/sites-enabled/site.conf|grep domains|grep =|cut -d "=" -f 2)
+  do
+    address=$(pylookup $domain)
+    echo "$domain ($address)"
+  done
+}
+
+print_domains
 
 echo "======================================================"
 echo "The IP you must use is : `docker-machine ip renewcert`"
