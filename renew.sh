@@ -9,7 +9,7 @@ if [[ $provider == digitalocean ]]; then
     exit 1
   fi
   echo "creating the temporary machine"
-  docker-machine create --driver digitalocean --digitalocean-access-token=$DO_ATOKEN renewcert
+  docker-machine create --driver digitalocean --digitalocean-access-token=$DO_ATOKEN --digitalocean-image ubuntu-16-04-x64 renewcert
 else
   if [ -z "$EC2_AKEY" ]; then
     echo "You must need to provide your amazon access key EC2_AKEY=<value>"
