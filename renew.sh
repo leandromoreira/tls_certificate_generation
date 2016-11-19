@@ -59,7 +59,7 @@ print_domains() {
 print_domains
 
 echo ""
-read -p "Did you change your DNS already (point your domains to `docker-machine ip renewcert`) a wait its TTL? (y/N) " -n 1 -r
+read -p "Did you change your DNS already (point your domains to `docker-machine ip renewcert`) and wait its TTL? (y/N) " -n 1 -r
 echo ""
 
 if [[ $REPLY =~ ^[Yy]$ ]]
