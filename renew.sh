@@ -69,7 +69,7 @@ then
 
   print_domains
   echo ""
-  echo "Type the FIRST (full) domain you set up at `nginx/sites-enabled/site.conf`, followed by [ENTER]:"
+  echo "Type the FIRST (full) domain you set up at 'nginx/sites-enabled/site.conf', followed by [ENTER]:"
   read first_domain
 
   docker cp `docker ps|grep common|cut -d " " -f 1`:/etc/letsencrypt/archive/$first_domain/privkey1.pem .
