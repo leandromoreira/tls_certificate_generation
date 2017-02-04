@@ -11,10 +11,3 @@
 * For DO usage
   * Run `DO_ATOKEN=xxx ./renew.sh digitalocean` and follow the steps (like configuring DNS and etc)
 * Get the certificates `privkey1.pem` and `fullchain1.pem`.
-
-### Bonus round ###
-
-You can also transfer the downloaded certificates to your site, there is an opinionated script `upload_certs_on_nginx`.
-
-* Make sure you have bound to your docker machine already (ex:`eval "$(docker-machine --storage-path /usr/local/share/web/docker_machines/ env mysite)"`)
-* Double check the content of `upload_certs_on_nginx`, it assumes: container name, certificate path and others.
